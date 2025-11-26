@@ -22,11 +22,11 @@ import jakarta.validation.constraints.Positive;
 public class Estimate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Positive
     @NotNull(message = "Final price of vehicle cannot be null")
-    private float finalPrice;
+    private Float finalPrice;
 
     @NotNull(message = "Date of creation of the estimate cannot be null")
     private LocalDate createdAt;
@@ -54,19 +54,19 @@ public class Estimate {
     private List<Optional> optionals;
 
     //Getters and setters
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public float getFinalPrice() {
+    public Float getFinalPrice() {
         return this.finalPrice;
     }
 
-    public void setFinalPrice(float finalPrice) {
+    public void setFinalPrice(Float finalPrice) {
         this.finalPrice = finalPrice;
     }
 

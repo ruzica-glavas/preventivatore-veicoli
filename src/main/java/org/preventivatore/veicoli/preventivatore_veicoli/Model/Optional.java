@@ -18,25 +18,25 @@ import jakarta.validation.constraints.Positive;
 public class Optional {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotBlank(message = "Name of optional cannot be null nor empty or blank")
     private String name;
 
     @Positive
     @NotNull(message = "Price of optional cannot be null")
-    private float price;
+    private Float price;
 
     //Estimate
     @ManyToMany(mappedBy = "optionals")
     private List<Estimate> estimates;
 
     //Getters and setters
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -48,11 +48,11 @@ public class Optional {
         this.name = name;
     }
 
-    public float getPrice() {
+    public Float getPrice() {
         return this.price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(Float price) {
         this.price = price;
     }
 

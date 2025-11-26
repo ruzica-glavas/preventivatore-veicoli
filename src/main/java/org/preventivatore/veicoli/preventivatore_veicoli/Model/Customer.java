@@ -16,7 +16,7 @@ import jakarta.validation.constraints.NotBlank;
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotBlank(message = "firstName cannot be null nor empty or blank")
     private String firstName;
@@ -35,11 +35,11 @@ public class Customer {
     private List<Estimate> estimates;
 
     //Getters and Setters
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

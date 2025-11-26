@@ -1,5 +1,6 @@
 package org.preventivatore.veicoli.preventivatore_veicoli.Model;
 
+import java.time.Year;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -19,7 +20,7 @@ import jakarta.validation.constraints.Positive;
 public class Vehicle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @NotBlank(message = "Type of vehicle cannot be null nor empty or blank")
     private String type;
@@ -32,29 +33,29 @@ public class Vehicle {
 
     @PastOrPresent
     @NotNull(message = "Year of vehicle cannot be null")
-    private int year;
+    private Year year;
 
     @Positive
     @NotNull(message = "Engine capacity of vehicle cannot be null")
-    private int engineCapacity;
+    private Integer engineCapacity;
 
     @NotBlank(message = "Fuel of vehicle cannot be null nor empty or blank")
     private String fuel;
 
     @Positive
     @NotNull(message = "Base price of vehicle cannot be null")
-    private float basePrice;
+    private Float basePrice;
 
     //Estimate
     @OneToMany(mappedBy = "vehicle")
     private List<Estimate> estimates;
 
     //Getters and Setters
-    public int getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -82,19 +83,19 @@ public class Vehicle {
         this.model = model;
     }
 
-    public int getYear() {
+    public Year getYear() {
         return this.year;
     }
 
-    public void setYear(int year) {
+    public void setYear(Year year) {
         this.year = year;
     }
 
-    public int getEngineCapacity() {
+    public Integer getEngineCapacity() {
         return this.engineCapacity;
     }
 
-    public void setEngineCapacity(int engineCapacity) {
+    public void setEngineCapacity(Integer engineCapacity) {
         this.engineCapacity = engineCapacity;
     }
 
@@ -106,11 +107,11 @@ public class Vehicle {
         this.fuel = fuel;
     }
 
-    public float getBasePrice() {
+    public Float getBasePrice() {
         return this.basePrice;
     }
 
-    public void setBasePrice(float basePrice) {
+    public void setBasePrice(Float basePrice) {
         this.basePrice = basePrice;
     }
 
