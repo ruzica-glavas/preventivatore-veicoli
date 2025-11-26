@@ -1,4 +1,4 @@
-package org.preventivatore.veicoli.preventivatore_veicoli.Model;
+package org.preventivatore.veicoli.preventivatore_veicoli.model;
 
 import java.time.LocalDate;
 import java.util.List;
