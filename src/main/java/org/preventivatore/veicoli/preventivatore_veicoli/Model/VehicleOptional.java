@@ -15,7 +15,7 @@ import jakarta.validation.constraints.Positive;
 @Entity
 @Table(name = "optionals")
 
-public class Optional {
+public class VehicleOptional {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

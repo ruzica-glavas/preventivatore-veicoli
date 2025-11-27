@@ -51,7 +51,7 @@ public class Estimate {
         joinColumns = @JoinColumn(name = "estimate_id"),
         inverseJoinColumns = @JoinColumn(name = "optional_id")
     )
-    private List<Optional> optionals;
+    private List<VehicleOptional> optionals;
 
     //Getters and setters
     public Integer getId() {
@@ -103,11 +103,11 @@ public class Estimate {
         this.customer = customer;
     }
 
-    public List<Optional> getOptionals() {
+    public List<VehicleOptional> getOptionals() {
         return this.optionals;
     }
 
-    public void setOptionals(List<Optional> optionals) {
+    public void setOptionals(List<VehicleOptional> optionals) {
         this.optionals = optionals;
     }
 }
