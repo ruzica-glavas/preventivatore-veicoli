@@ -37,6 +37,10 @@ public class CustomerService {
         return customerRepository.save(customer);
     }
 
+    public void delete(Customer customer){
+        customerRepository.delete(customer);
+    }
+
     public void deleteById(Integer id){
         customerRepository.deleteById(id);
     }

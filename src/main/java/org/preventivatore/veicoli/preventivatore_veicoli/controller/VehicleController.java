@@ -40,7 +40,7 @@ public class VehicleController {
 
     @GetMapping("/create")
     public String create(Model model){
-        model.addAttribute("create", true); // SErve per indicare che siamo nella modalità create
+        model.addAttribute("create", true); // Serve per indicare che siamo nella modalità create
         model.addAttribute("vehicle", new Vehicle());
 
         return "vehicles/create-or-edit";
