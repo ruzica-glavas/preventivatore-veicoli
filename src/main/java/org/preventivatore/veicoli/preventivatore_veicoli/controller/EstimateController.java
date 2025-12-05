@@ -62,7 +62,6 @@ public class EstimateController {
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("estimate") Estimate formEstimate, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
-        model.addAttribute("estimate", new Estimate());
         model.addAttribute("vehicles", vehicleService.findAll());
         model.addAttribute("customers", customerService.findAll());
         model.addAttribute("optionals", vehicleOptionalService.findAll());
@@ -85,7 +84,7 @@ public class EstimateController {
         return "estimates/create-or-edit";
     }
 
-    @PostMapping("edit/{id}")
+    @PostMapping("/edit/{id}")
     public String update(@Valid @ModelAttribute("estimate") Estimate formEstimate, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes){
         model.addAttribute("vehicles", vehicleService.findAll());
         model.addAttribute("customers", customerService.findAll());
