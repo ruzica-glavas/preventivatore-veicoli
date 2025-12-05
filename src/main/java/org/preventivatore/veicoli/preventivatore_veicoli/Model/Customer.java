@@ -2,6 +2,7 @@ package org.preventivatore.veicoli.preventivatore_veicoli.model;
 
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,7 +32,7 @@ public class Customer {
     private String phone;
 
     //Estimate
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", cascade = {CascadeType.REMOVE})
     private List<Estimate> estimates;
 
     //Getters and Setters

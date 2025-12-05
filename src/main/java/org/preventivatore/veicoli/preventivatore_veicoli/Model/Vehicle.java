@@ -3,6 +3,7 @@ package org.preventivatore.veicoli.preventivatore_veicoli.model;
 import java.time.Year;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -47,7 +48,7 @@ public class Vehicle {
     private Float basePrice;
 
     //Estimate
-    @OneToMany(mappedBy = "vehicle")
+    @OneToMany(mappedBy = "vehicle", cascade = {CascadeType.REMOVE})
     private List<Estimate> estimates;
 
     //Getters and Setters
