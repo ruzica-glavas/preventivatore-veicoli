@@ -3,6 +3,7 @@ package org.preventivatore.veicoli.preventivatore_veicoli.service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.preventivatore.veicoli.preventivatore_veicoli.model.Customer;
 import org.preventivatore.veicoli.preventivatore_veicoli.model.Estimate;
@@ -29,9 +30,23 @@ public class EstimateService {
     @Autowired
     VehicleOptionalRepository vehicleOptionalRepository;
 
-    public Estimate create(Estimate estimate){
-        
+    public List<Estimate> findAll(){
+        return estimateRepository.findAll();
+    }
 
+    public Estimate getById(Integer id){
+        Optional<Estimate> estimate = estimateRepository.findById(id);
+        if (estimate.isEmpty()) {
+            throw new IllegalArgumentException("Estimate not found with id: " + id);
+        }
+        return estimate.get();
+    }
+
+    public Optional<Estimate> findById(Integer id){
+        return estimateRepository.findById(id);
+    }
+
+    public Estimate create(Estimate estimate){
         //Vado a recuperare i vehicle e i customer. Non ho usato Optional per usare una scrittura alternativa a quella usata fino ad ora.
         Vehicle vehicle = vehicleRepository.findById(estimate.getVehicle().getId())
             .orElseThrow(()->new IllegalArgumentException("Vehicle not found"));
@@ -94,4 +109,16 @@ public class EstimateService {
 
             return finalPrice;
         }
+    
+    public Estimate update(Estimate estimate){
+        return estimateRepository.save(estimate);
+    }
+
+    public void delete(Estimate estimate){
+        estimateRepository.delete(estimate);
+    }
+
+    public void deleteById(Integer id){
+        estimateRepository.deleteById(id);
+    }
 }
