@@ -38,6 +38,10 @@ public class VehicleOptionalService {
         return vehicleOptionalRepository.save(vehicleOptional);
     }
 
+    public void delete(VehicleOptional vehicleOptional){
+        vehicleOptionalRepository.delete(vehicleOptional);
+    }
+
     public void deleteById(Integer id){
         vehicleOptionalRepository.deleteById(id);
     }
