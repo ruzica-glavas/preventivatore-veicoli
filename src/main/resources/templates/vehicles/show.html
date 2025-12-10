@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/resources :: headTags}">
+</head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('pizzas')}"></nav>
+
+    <main class="container">
+        <h1 class="mt-3 mb-4">Pagina dettagio del Veicolo!</h1> 
+        <h2 th:text="${vehicle.brand}"></h2>
+        <section class="row">
+            <div class="col-12">
+                <div class="card h-100 show-card">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${vehicle.brand}">Nome</h5>
+                        <p class="text-muted fw-bold" th:text=" 'Modello del veicolo: ' + ${vehicle.model}">Model</p>
+                        <p class="text-muted fw-bold" th:text=" 'Anno del veicolo: ' + ${vehicle.year}">Year</p>
+                        <p class="text-muted fw-bold" th:text=" 'Cavalli: ' + ${vehicle.engineCapacity}">Engine</p>
+                        <p class="text-muted fw-bold" th:text=" 'Alimentazione del veicolo: ' + ${vehicle.fuel}">Engine</p>
+                </div>
+                <div class="card-footer">
+                    <p class="text-muted" th:text="'€ ' + ${vehicle.basePrice}">Prezzo</p>
+                </div>
+            </div>
+
+    <div class="text-center my-2">
+        <a class="btn btn-outline-danger" th:href="@{/vehicles}" role="button">Torna alla pagina iniziale</a>
+    </div>  
+
+        </section>
+
+    </main>
+
+    <div th:replace="~{fragments/resources :: goBackButton}"></div>
+
+</body>
+</html>
