@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/resources :: headTags}">
+</head>
+<body>
+    
+    <nav th:replace="~{fragments/navbar :: navbar('vehicles')}"></nav>
+
+        <div class="container">
+            <h1>Benvenuto su Preventivatore Veicoli!</h1>
+            <p>
+                Scopri il modo più semplice e veloce per creare preventivi personalizzati per ogni tipo di veicolo.
+                Con il nostro sistema puoi:<br>
+
+                - Esplorare i veicoli disponibili: auto, moto e furgoni con tutte le informazioni essenziali.<br>
+
+                - Generare preventivi dettagliati: includi optional e calcola il prezzo finale in pochi clic.<br>
+
+                - Gestire i clienti: tieni traccia dei dati dei tuoi clienti e dei loro preventivi.<br>
+
+                - Personalizzare le offerte: aggiungi optional come climatizzatore, navigatore, cerchi in lega e molto altro.<br>
+
+                Il tutto con un’interfaccia intuitiva e facile da usare, pensata per aiutarti a risparmiare tempo e offrire ai tuoi clienti preventivi chiari e professionali.
+
+                Inizia subito: esplora i veicoli o crea un nuovo preventivo!
+            </p>
+        </div>
+
+
+
+
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+</html>
