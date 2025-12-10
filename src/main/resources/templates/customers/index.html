@@ -3,71 +3,71 @@
 
 <head th:replace="~{fragments/resources :: headTags}"></head>
 
-<body>
-    <nav th:replace="~{fragments/navbar :: navbar('customers')}"></nav>
+    <body>
+        <nav th:replace="~{fragments/navbar :: navbar('customers')}"></nav>
 
-    <div class="container mt-4">
+        <div class="container mt-4">
 
-        <!-- Pulsante per creare un nuovo cliente -->
-        <div class="text-center p-4 my-2">
-            <a class="btn btn-outline-primary" th:href="@{/customers/create}" role="button">Aggiungi un cliente!</a>
-        </div> 
+            <!-- Pulsante per creare un nuovo cliente -->
+            <div class="text-center p-4 my-2">
+                <a class="btn btn-outline-primary" th:href="@{/customers/create}" role="button">Aggiungi un cliente!</a>
+            </div> 
 
-        <!-- Lista dei clienti -->
-        <div class="row row-cols-1 row-cols-md-3 g-4" th:if="${customers.size() > 0}">
-            <div class="col" th:each="customer : ${customers}">
-                <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${customer.firstName} + ' ' + ${customer.lastName}">Nome</h5>
-                    </div>
+            <!-- Lista dei clienti -->
+            <div class="row row-cols-1 row-cols-md-3 g-4" th:if="${customers.size() > 0}">
+                <div class="col" th:each="customer : ${customers}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${customer.firstName} + ' ' + ${customer.lastName}">Nome</h5>
+                        </div>
 
-                    <div class="card-footer text-center">
-                        <div class="d-flex justify-content-center gap-2 my-2">
-                            <a class="btn btn-outline-primary" th:href="@{/customers/{id}(id=${customer.id})}" role="button">Dettaglio</a>
-                            <a class="btn btn-outline-info" th:href="@{/customers/edit/{id}(id=${customer.id})}" role="button">Modifica</a>
-                            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" th:attr="data-bs-target='#delete-modal-' + ${customer.id}">
-                                Elimina
-                            </button>
+                        <div class="card-footer text-center">
+                            <div class="d-flex justify-content-center gap-2 my-2">
+                                <a class="btn btn-outline-primary" th:href="@{/customers/{id}(id=${customer.id})}" role="button">Dettaglio</a>
+                                <a class="btn btn-outline-info" th:href="@{/customers/edit/{id}(id=${customer.id})}" role="button">Modifica</a>
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" th:attr="data-bs-target='#delete-modal-' + ${customer.id}">
+                                    Elimina
+                                </button>
 
-                            <!-- Modal di conferma eliminazione -->
-                            <div class="modal fade" th:id="'delete-modal-' + ${customer.id}" tabindex="-1"
-                                 aria-labelledby="modalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" th:text="'Eliminazione cliente: ' + ${customer.firstName} + ' ' + ${customer.lastName}"></h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body" th:text="'Sei sicuro di voler cancellare: ' + ${customer.firstName} + ' ' + ${customer.lastName} + ' con l\'id: ' + ${customer.id} + '?'">
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
-                                            <form th:action="@{/customers/delete/{id}(id=${customer.id})}" method="post" class="d-inline">
-                                                <input type="submit" value="Cancella definitivamente" class="btn btn-outline-danger">
-                                            </form> 
+                                <!-- Modal di conferma eliminazione -->
+                                <div class="modal fade" th:id="'delete-modal-' + ${customer.id}" tabindex="-1"
+                                    aria-labelledby="modalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" th:text="'Eliminazione cliente: ' + ${customer.firstName} + ' ' + ${customer.lastName}"></h1>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body" th:text="'Sei sicuro di voler cancellare: ' + ${customer.firstName} + ' ' + ${customer.lastName} + ' con l\'id: ' + ${customer.id} + '?'">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+                                                <form th:action="@{/customers/delete/{id}(id=${customer.id})}" method="post" class="d-inline">
+                                                    <input type="submit" value="Cancella definitivamente" class="btn btn-outline-danger">
+                                                </form> 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                        </div>
-                    </div>                  
+                            </div>
+                        </div>                  
+                    </div>
                 </div>
             </div>
+
+            <!-- Messaggio se non ci sono clienti -->
+            <div th:if="${customers.size() == 0}">
+                <h2 class="text-danger mt-4">Nessun cliente trovato</h2>
+            </div>
+
         </div>
 
-        <!-- Messaggio se non ci sono clienti -->
-        <div th:if="${customers.size() == 0}">
-            <h2 class="text-danger mt-4">Nessun cliente trovato</h2>
-        </div>
+        <!-- Pulsante per tornare all'inizio -->
+        <div class="text-center my-2 p-4">
+            <a class="btn btn-outline-danger" th:href="@{/customers}" role="button">Torna all'inizio della pagina</a>
+        </div>   
 
-    </div>
-
-    <!-- Pulsante per tornare all'inizio -->
-    <div class="text-center my-2 p-4">
-        <a class="btn btn-outline-danger" th:href="@{/customers}" role="button">Torna all'inizio della pagina</a>
-    </div>   
-
-    <div th:replace="~{fragments/resources :: scripts}"></div>
-</body>
+        <div th:replace="~{fragments/resources :: scripts}"></div>
+    </body>
 </html>

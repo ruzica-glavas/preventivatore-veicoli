@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/resources :: headTags}"></head>
+    <body>
+        
+        <nav th:replace="~{fragments/navbar :: navbar('optionals')}"></nav>
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    
+                    <h1 class="mb-4" th:text="${edit} ? 'Modifica optional ' : 'Crea un nuovo optional'">
+                        Crea o Modifica Optional
+                    </h1> 
+                    
+                    <form id="optional-form" th:object="${optional}" 
+                        th:action="${edit} ? @{/optionals/edit/{id}(id=${optional.id})} : @{/optionals/create}" 
+                        method="post">
+
+                        <!-- Campo nascosto per ID, necessario per l'edit -->
+                        <input type="hidden" th:field="*{id}" />
+
+                        <!-- Nome -->
+                        <div class="mb-2">
+                            <label for="name" class="form-label">Nome Optional</label>
+                            <input type="text" class="form-control" id="name" th:field="*{name}" 
+                                th:errorClass="is-invalid" placeholder="Es. Climatizzatore">
+                            <div th:if="${#fields.hasErrors('name')}" class="invalid-feedback">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('name')}" th:text="${err}"></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Prezzo -->
+                        <div class="mb-2">
+                            <label for="price" class="form-label">Prezzo (€)</label>
+                            <input type="number" class="form-control" id="price" th:field="*{price}" 
+                                th:errorClass="is-invalid" step="0.01" placeholder="Es. 12000">
+                            <div th:if="${#fields.hasErrors('price')}" class="invalid-feedback">
+                                <ul>
+                                    <li th:each="err:${#fields.errors('price')}" th:text="${err}"></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center gap-3 mt-3">
+                            <input type="submit" value="Salva" class="btn btn-outline-primary">
+                            <input type="reset" value="Reset campi" class="btn btn-outline-warning">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="~{fragments/resources :: goBackButton}"></div>
+        <div th:replace="~{fragments/resources :: scripts}"></div>
+    </body>
+</html>
