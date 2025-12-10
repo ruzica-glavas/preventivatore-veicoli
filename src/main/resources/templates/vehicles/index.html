@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+    <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+    <head th:replace="~{fragments/resources :: headTags}">
+    </head>
+    <body>
+        <nav th:replace="~{fragments/navbar :: navbar('vehicles')}"></nav>
+
+        
+        <div class="container mt-4">
+
+            <div class="text-center p-4 my-2">
+                <a class="btn btn-outline-primary" th:href="@{/vehicles/create}" role="button">Crea il tuo preventivo!</a>
+            </div> 
+
+            <div class="row row-cols-1 row-cols-md-3 g-4" th:if="${vehicles.size()>0}">
+                <div class="col" th:each="vehicle : ${vehicles}">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title" th:text="${vehicle.brand}">Nome</h5>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted fw-bold" th:text=" 'Tipo di veicolo: ' + ${vehicle.type}">Type</small><br>
+                            <small class="text-muted fw-bold" th:text=" 'Modello del veicolo: ' + ${vehicle.model}">Model</small><br>
+                            <small class="text-muted fw-bold" th:text=" 'Anno del veicolo: ' + ${vehicle.year}">Year</small><br>
+                            <small class="text-muted fw-bold" th:text=" 'Cavalli: ' + ${vehicle.engineCapacity}">Engine</small><br>
+                            <small class="text-muted fw-bold" th:text=" 'Alimentazione del veicolo: ' + ${vehicle.fuel}">Engine</small><br>
+                            <small class="text-muted fw-bold" th:text=" 'Prezzo base: € ' + ${vehicle.basePrice}">Base Price</small>
+                        </div>
+
+                        <div class="card-footer text-center">
+                            <div class="d-flex justify-content-center gap-2 my-2">
+                                <a class="btn btn-outline-primary" th:href="@{/vehicles/{id}(id=${vehicle.id})}" role="button">Dettaglio</a>
+                                <a class="btn btn-outline-info" th:href="@{/vehicles/edit/{id}(id=${vehicle.id})}" role="button">Modifica</a>
+                                <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" th:attr="data-bs-target='#delete-modal-' + ${vehicle.id}">
+                                        Elimina
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" th:id="'delete-modal-' + ${vehicle.id}" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Deleting [[*{name}]]</h1>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body" th:text="'Sei sicuro di voler cancellare: ' + ${vehicle.brand} + ' con l\'id: ' + ${vehicle.id} + '?'">
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            data-bs-dismiss="modal">Annulla
+                                                        </button>
+                                                        <form th:action="@{/vehicles/delete/{id}(id=${vehicle.id})}" method="post" class="d-inline">
+                                                            <input type="submit" value="Cancella definitivamente" class="btn btn-outline-danger">
+                                                        </form> 
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                            </div>
+                        </div>                  
+                    </div>
+                </div>
+            </div>
+
+            <div th:if="${vehicles.size() == 0}">
+                <h2 class="text-danger mt-4">Nessun veicolo trovato</h2>
+            </div>
+
+        </div>
+
+        <div class="text-center my-2 p-4">
+            <a class="btn btn-outline-danger" th:href="@{/vehicles}" role="button">Torna all'inizio della pagina</a>
+        </div>   
+
+        <div th:replace="~{fragments/resources :: scripts}"></div>
+    </body>
+</html>

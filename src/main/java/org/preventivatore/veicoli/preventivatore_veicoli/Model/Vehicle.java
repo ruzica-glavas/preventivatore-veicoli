@@ -1,6 +1,5 @@
 package org.preventivatore.veicoli.preventivatore_veicoli.model;
 
-import java.time.Year;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -34,7 +33,7 @@ public class Vehicle {
 
     @PastOrPresent
     @NotNull(message = "Year of vehicle cannot be null")
-    private Year year;
+    private Integer year;
 
     @Positive
     @NotNull(message = "Engine capacity of vehicle cannot be null")
@@ -84,11 +83,11 @@ public class Vehicle {
         this.model = model;
     }
 
-    public Year getYear() {
+    public Integer getYear() {
         return this.year;
     }
 
-    public void setYear(Year year) {
+    public void setYear(Integer year) {
         this.year = year;
     }
 
