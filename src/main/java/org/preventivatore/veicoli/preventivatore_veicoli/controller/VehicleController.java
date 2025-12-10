@@ -62,6 +62,7 @@ public class VehicleController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model){
         model.addAttribute("vehicle", vehicleService.getById(id));
+        model.addAttribute("edit", true);
 
         return "vehicles/create-or-edit";
     }

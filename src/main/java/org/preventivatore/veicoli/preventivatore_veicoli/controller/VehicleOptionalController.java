@@ -60,6 +60,7 @@ public class VehicleOptionalController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model){
         model.addAttribute("optional", vehicleOptionalService.getById(id));
+        model.addAttribute("edit", true);
 
         return "optionals/create-or-edit";
     }

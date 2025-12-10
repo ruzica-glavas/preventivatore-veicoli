@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/resources :: headTags}"></head>
+    <body>
+        
+        <nav th:replace="~{fragments/navbar :: navbar('customers')}"></nav>
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    
+                    <h1 class="mb-4" th:text="${edit} ? 'Modifica il cliente' : 'Crea un nuovo cliente'">
+                        Crea o Modifica Cliente
+                    </h1> 
+                    
+                    <form id="customer-form" th:object="${customer}" 
+                        th:action="${edit} ? @{/customers/edit/{id}(id=${customer.id})} : @{/customers/create}" 
+                        method="post">
+
+                        <!-- Campo nascosto per ID, necessario per l'edit -->
+                        <input type="hidden" th:field="*{id}" />
+
+                        <!-- Nome -->
+                        <div class="mb-2">
+                            <label for="firstName" class="form-label">Nome Cliente</label>
+                            <input type="text" class="form-control" id="firstName" th:field="*{firstName}" 
+                                th:errorClass="is-invalid" placeholder="Es. Mario">
+                            <div th:if="${#fields.hasErrors('firstName')}" class="invalid-feedback">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}"></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Cognome -->
+                        <div class="mb-2">
+                            <label for="lastName" class="form-label">Cognome</label>
+                            <input type="text" class="form-control" id="lastName" th:field="*{lastName}" 
+                                th:errorClass="is-invalid" placeholder="Es. Rossi">
+                            <div th:if="${#fields.hasErrors('lastName')}" class="invalid-feedback">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}"></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-2">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" th:field="*{email}" 
+                                th:errorClass="is-invalid" placeholder="Es. ciao@gmail.com">
+                            <div th:if="${#fields.hasErrors('email')}" class="invalid-feedback">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('email')}" th:text="${err}"></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Telefono -->
+                        <div class="mb-2">
+                            <label for="phone" class="form-label">Telefono</label>
+                            <input type="tel" class="form-control" id="phone" th:field="*{phone}" 
+                                th:errorClass="is-invalid" placeholder="Es. 3451234567">
+                            <div th:if="${#fields.hasErrors('phone')}" class="invalid-feedback">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('phone')}" th:text="${err}"></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-center gap-3 mt-3">
+                            <input type="submit" value="Salva" class="btn btn-outline-primary">
+                            <input type="reset" value="Reset campi" class="btn btn-outline-warning">
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div th:replace="~{fragments/resources :: goBackButton}"></div>
+        <div th:replace="~{fragments/resources :: scripts}"></div>
+    </body>
+</html>
+

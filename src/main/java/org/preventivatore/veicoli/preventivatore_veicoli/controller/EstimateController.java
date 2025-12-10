@@ -46,6 +46,7 @@ public class EstimateController {
     @GetMapping("{id}")
     public String show(@PathVariable("id") Integer id, Model model){
         model.addAttribute("estimate", estimateService.getById(id));
+        model.addAttribute("edit", true);
 
         return "estimates/show";
     }

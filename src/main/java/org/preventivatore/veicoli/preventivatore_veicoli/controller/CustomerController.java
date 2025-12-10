@@ -60,6 +60,7 @@ public class CustomerController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable("id") Integer id, Model model){
         model.addAttribute("customer", customerService.getById(id));
+        model.addAttribute("edit", true);
 
         return "customers/create-or-edit";
     }
