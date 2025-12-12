@@ -1,4 +1,5 @@
 Struttura del progetto
+
 **1. Model (Entity)**
 
 Le entità principali del progetto sono:
