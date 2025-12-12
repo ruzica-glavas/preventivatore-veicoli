@@ -14,6 +14,12 @@
                 <div class="card h-100 show-card">
                 <div class="card-body">
                     <h5 class="card-title" th:text="'Optionals inclusi: ' + ${estimate.optionals.size()}">Optionals</h5>
+                        <ul class="list-group list-group-numbered mb-4">
+                            <li class="list-group-item"
+                            th:each="optional: ${estimate.optionals}">
+                                <span th:text="${optional.name}"></span>
+                            </li>
+                        </ul>
                         <p class="text-muted fw-bold" th:text=" 'Data: ' + ${estimate.createdAt}">Data</p>
                         <p class="text-muted fw-bold" th:text=" 'Note: ' + ${estimate.notes}">Note</p>
                 </div>

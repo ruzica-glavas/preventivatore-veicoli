@@ -32,8 +32,19 @@
                             <strong>Veicolo:</strong>
                             <span th:text="${estimate.vehicle.brand} + ' ' + ${estimate.vehicle.model}"></span>
                         </p>
-                    </div>
 
+                        <p class="card-text">
+                            <strong>Prezzo iniziale:</strong>
+                            <span th:text="${estimate.vehicle.basePrice}"></span>
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Prezzo finale:</strong>
+                            <span th:text="${estimate.finalPrice}"></span>
+                        </p>
+
+                    </div>
+    
                     <!-- Footer card -->
                     <div class="card-footer text-center">
                         <div class="d-flex justify-content-center gap-2 my-2">
