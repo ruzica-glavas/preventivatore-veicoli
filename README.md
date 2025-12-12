@@ -1,5 +1,5 @@
 Struttura del progetto
-1. Model (Entity)
+**1. Model (Entity)**
 
 Le entità principali del progetto sono:
 
@@ -13,7 +13,7 @@ Le entità principali del progetto sono:
 
 Ogni entity è collegata tramite relazioni ManyToOne, OneToMany o ManyToMany, e sono presenti annotazioni di validazione per assicurare l’integrità dei dati.
 
-2. Service (Logica di business)
+**2. Service (Logica di business)**
 
 La logica applicativa è stata implementata nei service layer:
 
@@ -33,7 +33,7 @@ Nel caso dei preventivi, il servizio calcola automaticamente:
 
 Il service layer si occupa anche di validare l’esistenza di entità correlate prima di salvare o modificare un record (es. verificare che il veicolo e il cliente esistano prima di creare un preventivo).
 
-3. Controller (Gestione delle richieste)
+**3. Controller (Gestione delle richieste)**
 
 I controller gestiscono le chiamate HTTP e orchestrano il flusso tra Model e View:
 
@@ -53,7 +53,7 @@ Ogni controller gestisce:
 
 I controller passano i dati necessari alle View tramite il Model di Spring.
 
-4. View (Thymeleaf)
+**4. View (Thymeleaf)**
 
 Tutte le pagine sono state realizzate con Thymeleaf, permettendo una gestione dinamica dei dati:
 
@@ -67,7 +67,7 @@ Tutte le pagine sono state realizzate con Thymeleaf, permettendo una gestione di
 
 - Supporto a condizioni dinamiche (es. cambiare titolo da "Crea" a "Modifica" in base alla modalità)
 
-5. Architettura MVC
+**5. Architettura MVC**
 
 L’intera applicazione segue il pattern Model-View-Controller:
 
@@ -79,7 +79,7 @@ L’intera applicazione segue il pattern Model-View-Controller:
 
 Nota: Non sono state create API REST pubbliche, tutte le operazioni avvengono tramite form e routing MVC tradizionale.
 
-6. Funzionalità principali
+**6. Funzionalità principali**
 
 - Gestione completa di clienti, veicoli e optional
 
