@@ -1,0 +1,139 @@
+<!-- <!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/resources :: headTags}"></head>
+    <body>
+        
+        <nav th:replace="~{fragments/navbar :: navbar('estimates')}"></nav>
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <h1 class="mb-4" th:text="${edit} ? 'Modifica il veicolo' : 'Crea un nuovo veicolo'">Crea o Modifica Preventivo</h1> 
+                    
+                    <form id="estimate-form" th:object="${estimate}" 
+                        th:action="${edit} ? @{/estimates/edit/{id}(id=${estimate.id})} : @{/estimates/create}" 
+                        method="post">
+
+                        <div class="mb-2">
+                            <label for="notes" class="form-label">Notes</label>
+                            <textarea class="form-control" id="notes" th:field="*{notes}" rows="3"></textarea>
+                        </div>
+
+                        
+                        <div class="d-flex justify-content-center gap-3 mt-3">
+                            <input type="submit" value="Salva" class="btn btn-outline-primary">
+                            <input type="reset" value="Reset campi" class="btn btn-outline-warning">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center my-2">
+            <a class="btn btn-outline-danger" th:href="@{/estimates}" role="button">Torna alla pagina iniziale</a>
+        </div>  
+        <div th:replace="~{fragments/resources :: scripts}"></div>
+    </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/resources :: headTags}"></head>
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('estimates')}"></nav>
+
+    <div class="container mt-4">
+        <h1 th:text="${estimate.id != null ? 'Edit Estimate' : 'Create New Estimate'}"></h1>
+
+        <form 
+            th:action="${estimate.id != null ? '/estimates/edit/' + estimate.id : '/estimates/create'}" 
+            th:object="${estimate}" 
+            method="post" 
+            class="mt-4">
+
+            <!-- Vehicle Selection -->
+            <div class="mb-3">
+                <label for="vehicle" class="form-label">Vehicle *</label>
+                <select class="form-select" id="vehicle" th:field="*{vehicle.id}" required>
+                    <option value="">Select a vehicle</option>
+                    <option th:each="vehicle : ${vehicles}" 
+                            th:value="${vehicle.id}" 
+                            th:text="${vehicle.brand + ' ' + vehicle.model + ' - €' + vehicle.basePrice}">
+                    </option>
+                </select>
+                <div class="text-danger" th:if="${#fields.hasErrors('vehicle')}" th:errors="*{vehicle}"></div>
+            </div>
+
+            <!-- Customer Selection -->
+            <div class="mb-3">
+                <label for="customer" class="form-label">Customer *</label>
+                <select class="form-select" id="customer" th:field="*{customer.id}" required>
+                    <option value="">Select a customer</option>
+                    <option th:each="customer : ${customers}" 
+                            th:value="${customer.id}" 
+                            th:text="${customer.firstName + ' ' + customer.lastName + ' (' + customer.email + ')'}">
+                    </option>
+                </select>
+                <div class="text-danger" th:if="${#fields.hasErrors('customer')}" th:errors="*{customer}"></div>
+            </div>
+
+            <!-- Optionals Selection (Multiple) -->
+            <div class="mb-3">
+                <label class="form-label">Vehicle Optionals</label>
+                <div class="border rounded p-3" style="max-height: 200px; overflow-y: auto;">
+                    <div th:each="optional : ${optionals}" class="form-check">
+                        <input 
+                            class="form-check-input" 
+                            type="checkbox" 
+                            th:id="'optional-' + ${optional.id}"
+                            th:value="${optional.id}"
+                            name="optionals"
+                            th:checked="${estimate.optionals != null && #lists.contains(estimate.optionals, optional)}">
+                        <label class="form-check-label" th:for="'optional-' + ${optional.id}">
+                            <span th:text="${optional.name}"></span> - 
+                            <strong th:text="'€' + ${optional.price}"></strong>
+                        </label>
+                    </div>
+                </div>
+                <small class="form-text text-muted">Select at least 3 optionals to get a 3% discount!</small>
+            </div>
+
+            <!-- Notes -->
+            <div class="mb-3">
+                <label for="notes" class="form-label">Notes</label>
+                <textarea class="form-control" id="notes" th:field="*{notes}" rows="4" 
+                          placeholder="Add any additional notes or comments..."></textarea>
+                <div class="text-danger" th:if="${#fields.hasErrors('notes')}" th:errors="*{notes}"></div>
+            </div>
+
+            <!-- Hidden fields for edit mode -->
+            <input type="hidden" th:field="*{id}" th:if="${estimate.id != null}">
+            <input type="hidden" th:field="*{finalPrice}" th:if="${estimate.id != null}">
+            <input type="hidden" th:field="*{createdAt}" th:if="${estimate.id != null}">
+
+            <!-- Buttons -->
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">
+                    <span th:text="${estimate.id != null ? 'Update Estimate' : 'Create Estimate'}"></span>
+                </button>
+                <a th:href="@{/estimates}" class="btn btn-secondary">Cancel</a>
+            </div>
+
+            <!-- Info box -->
+            <div class="alert alert-info mt-3" role="alert">
+                <strong>Pricing Information:</strong>
+                <ul class="mb-0">
+                    <li>Base vehicle price will be used</li>
+                    <li>Selected optionals will be added to the total</li>
+                    <li>3% discount applied if 3 or more optionals are selected</li>
+                    <li>2% discount for customer's first estimate</li>
+                </ul>
+            </div>
+        </form>
+    </div>
+
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+</body>
+</html>
+

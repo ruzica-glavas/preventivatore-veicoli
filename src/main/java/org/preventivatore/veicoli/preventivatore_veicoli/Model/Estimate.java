@@ -13,8 +13,8 @@ import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+// import jakarta.validation.constraints.NotNull;
+// import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "estimates")
@@ -24,11 +24,11 @@ public class Estimate {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Positive
-    @NotNull(message = "Final price of vehicle cannot be null")
+    // @Positive
+    // @NotNull(message = "Final price of vehicle cannot be null")
     private Float finalPrice;
 
-    @NotNull(message = "Date of creation of the estimate cannot be null")
+    // @NotNull(message = "Date of creation of the estimate cannot be null")
     private LocalDate createdAt;
 
     @Lob

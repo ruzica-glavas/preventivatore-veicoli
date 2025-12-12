@@ -110,8 +110,43 @@ public class EstimateService {
             return finalPrice;
         }
     
-    public Estimate update(Estimate estimate){
-        return estimateRepository.save(estimate);
+    public Estimate update(Estimate estimate) {
+    //Prendiamo dal DB gli oggetti che ci servono con un determinato Id
+    Estimate existing = estimateRepository.findById(estimate.getId())
+        .orElseThrow(() -> new IllegalArgumentException("Estimate not found with id: " + estimate.getId()));
+
+    Vehicle vehicle = vehicleRepository.findById(estimate.getVehicle().getId())
+        .orElseThrow(() -> new IllegalArgumentException("Vehicle not found"));
+
+    Customer customer = customerRepository.findById(estimate.getCustomer().getId())
+        .orElseThrow(() -> new IllegalArgumentException("Customer not found"));
+
+    //L'utente potrebbe aver tolto tutte le spunte per degli optionals, quindi la lista arriva come null. La trasformo in una lista vuota per evitare problemi successivi.
+    List<VehicleOptional> selectedOptionals = estimate.getOptionals();
+    if (selectedOptionals == null) {
+        selectedOptionals = new ArrayList<>();
+    }
+
+    //Per ogni optional che l'utente ha seleizonato, lo ricarichiamo del DB
+    List<VehicleOptional> validatedOptionals = new ArrayList<>();
+    for (VehicleOptional opt : selectedOptionals) {
+        VehicleOptional loaded = vehicleOptionalRepository.findById(opt.getId())
+            .orElseThrow(() -> new IllegalArgumentException("Optional not found with id: " + opt.getId()));
+        validatedOptionals.add(loaded);
+    }
+
+    //Ricalcolo del prezzo finale
+    float finalPrice = calculateFinalPrice(vehicle, customer, validatedOptionals);
+
+    //Aggiornameto dei campi che possono cambiare
+    existing.setVehicle(vehicle);
+    existing.setCustomer(customer);
+    existing.setOptionals(validatedOptionals);
+    existing.setNotes(estimate.getNotes());
+    existing.setFinalPrice(finalPrice);
+
+    //Salvo tutto nel DB
+    return estimateRepository.save(existing);
     }
 
     public void delete(Estimate estimate){
