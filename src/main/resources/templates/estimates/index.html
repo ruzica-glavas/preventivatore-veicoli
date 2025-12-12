@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/resources :: headTags}"></head>
+
+<body>
+    <nav th:replace="~{fragments/navbar :: navbar('estimates')}"></nav>
+
+    <div class="container mt-4">
+
+        <!-- Pulsante per creare un nuovo preventivo -->
+        <div class="text-center p-4 my-2">
+            <a class="btn btn-outline-primary" th:href="@{/estimates/create}" role="button">Crea un nuovo preventivo</a>
+        </div>
+
+        <!-- Lista preventivi -->
+        <div class="row row-cols-1 row-cols-md-3 g-4" th:if="${estimates.size() > 0}">
+            <div class="col" th:each="estimate : ${estimates}">
+                <div class="card h-100">
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Preventivo #<span th:text="${estimate.id}"></span>
+                        </h5>
+
+                        <p class="card-text">
+                            <strong>Cliente:</strong>
+                            <span th:text="${estimate.customer.firstName} + ' ' + ${estimate.customer.lastName}"></span>
+                        </p>
+
+                        <p class="card-text">
+                            <strong>Veicolo:</strong>
+                            <span th:text="${estimate.vehicle.brand} + ' ' + ${estimate.vehicle.model}"></span>
+                        </p>
+                    </div>
+
+                    <!-- Footer card -->
+                    <div class="card-footer text-center">
+                        <div class="d-flex justify-content-center gap-2 my-2">
+
+                            <a class="btn btn-outline-primary"
+                                th:href="@{/estimates/{id}(id=${estimate.id})}" role="button">
+                                Dettaglio
+                            </a>
+
+                            <a class="btn btn-outline-info"
+                                th:href="@{/estimates/edit/{id}(id=${estimate.id})}" role="button">
+                                Modifica
+                            </a>
+
+                            <button type="button" class="btn btn-outline-danger"
+                                    data-bs-toggle="modal"
+                                    th:attr="data-bs-target='#delete-modal-' + ${estimate.id}">
+                                    Elimina
+                            </button>
+
+                            <!-- Modal eliminazione -->
+                            <div class="modal fade" th:id="'delete-modal-' + ${estimate.id}" tabindex="-1"
+                                aria-labelledby="modalLabel" aria-hidden="true">
+
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5"
+                                                th:text="'Eliminazione preventivo #' + ${estimate.id}">
+                                            </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                    aria-label="Close"></button>
+                                        </div>
+
+                                        <div class="modal-body"
+                                            th:text="'Sei sicuro di voler eliminare il preventivo #' + ${estimate.id} + '?'">
+                                        </div>
+
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Annulla</button>
+
+                                            <form th:action="@{/estimates/delete/{id}(id=${estimate.id})}"
+                                                  method="post" class="d-inline">
+                                                <input type="submit" value="Cancella definitivamente"
+                                                       class="btn btn-outline-danger">
+                                            </form>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- No estimates -->
+        <div th:if="${estimates.size() == 0}">
+            <h2 class="text-danger mt-4">Nessun preventivo trovato</h2>
+        </div>
+
+    </div>
+
+    <div class="text-center my-2 p-4">
+        <a class="btn btn-outline-danger" th:href="@{/estimates}" role="button">Torna all'inizio della pagina</a>
+    </div>
+
+    <div th:replace="~{fragments/resources :: scripts}"></div>
+
+</body>
+</html>
