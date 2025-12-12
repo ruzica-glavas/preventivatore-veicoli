@@ -44,7 +44,7 @@
     <nav th:replace="~{fragments/navbar :: navbar('estimates')}"></nav>
 
     <div class="container mt-4">
-        <h1 th:text="${estimate.id != null ? 'Edit Estimate' : 'Create New Estimate'}"></h1>
+        <h1 th:text="${estimate.id != null ? 'Modifica preventivo' : 'Crea un nuovo preventivo'}"></h1>
 
         <form 
             th:action="${estimate.id != null ? '/estimates/edit/' + estimate.id : '/estimates/create'}" 
@@ -54,9 +54,9 @@
 
             <!-- Vehicle Selection -->
             <div class="mb-3">
-                <label for="vehicle" class="form-label">Vehicle *</label>
+                <label for="vehicle" class="form-label">Veicoli *</label>
                 <select class="form-select" id="vehicle" th:field="*{vehicle.id}" required>
-                    <option value="">Select a vehicle</option>
+                    <option value="">Seleziona veicolo</option>
                     <option th:each="vehicle : ${vehicles}" 
                             th:value="${vehicle.id}" 
                             th:text="${vehicle.brand + ' ' + vehicle.model + ' - €' + vehicle.basePrice}">
@@ -67,9 +67,9 @@
 
             <!-- Customer Selection -->
             <div class="mb-3">
-                <label for="customer" class="form-label">Customer *</label>
+                <label for="customer" class="form-label">Clienti *</label>
                 <select class="form-select" id="customer" th:field="*{customer.id}" required>
-                    <option value="">Select a customer</option>
+                    <option value="">Seleziona cliente</option>
                     <option th:each="customer : ${customers}" 
                             th:value="${customer.id}" 
                             th:text="${customer.firstName + ' ' + customer.lastName + ' (' + customer.email + ')'}">
@@ -80,7 +80,7 @@
 
             <!-- Optionals Selection (Multiple) -->
             <div class="mb-3">
-                <label class="form-label">Vehicle Optionals</label>
+                <label class="form-label">Optionals</label>
                 <div class="border rounded p-3" style="max-height: 200px; overflow-y: auto;">
                     <div th:each="optional : ${optionals}" class="form-check">
                         <input 
@@ -96,14 +96,14 @@
                         </label>
                     </div>
                 </div>
-                <small class="form-text text-muted">Select at least 3 optionals to get a 3% discount!</small>
+                <small class="form-text text-muted">Seleziona almeno 3 optionals per avere uno sconto del 3%</small>
             </div>
 
             <!-- Notes -->
             <div class="mb-3">
-                <label for="notes" class="form-label">Notes</label>
+                <label for="notes" class="form-label">Note</label>
                 <textarea class="form-control" id="notes" th:field="*{notes}" rows="4" 
-                          placeholder="Add any additional notes or comments..."></textarea>
+                          placeholder="Aggiungi una nota o un commento"></textarea>
                 <div class="text-danger" th:if="${#fields.hasErrors('notes')}" th:errors="*{notes}"></div>
             </div>
 
@@ -115,19 +115,19 @@
             <!-- Buttons -->
             <div class="d-flex gap-2">
                 <button type="submit" class="btn btn-primary">
-                    <span th:text="${estimate.id != null ? 'Update Estimate' : 'Create Estimate'}"></span>
+                    <span th:text="${estimate.id != null ? 'Aggiorna' : 'Create Estimate'}"></span>
                 </button>
-                <a th:href="@{/estimates}" class="btn btn-secondary">Cancel</a>
+                <a th:href="@{/estimates}" class="btn btn-secondary">Indietro</a>
             </div>
 
             <!-- Info box -->
             <div class="alert alert-info mt-3" role="alert">
-                <strong>Pricing Information:</strong>
+                <strong>Informazioni sui prezzi:</strong>
                 <ul class="mb-0">
-                    <li>Base vehicle price will be used</li>
-                    <li>Selected optionals will be added to the total</li>
-                    <li>3% discount applied if 3 or more optionals are selected</li>
-                    <li>2% discount for customer's first estimate</li>
+                    <li>Verrà usato il prezzo base del veicolo</li>
+                    <li>Gli optional selezionati verranno aggiunti al totale</li>
+                    <li>Verrà applicato uno sconto del 3% se si selezionano 3 o più optional</li>
+                    <li>Sconto del 2% per il primo preventivo del cliente</li>
                 </ul>
             </div>
         </form>
