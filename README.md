@@ -17,7 +17,7 @@ Ogni entity è collegata tramite relazioni ManyToOne, OneToMany o ManyToMany, e 
 
 La logica applicativa è stata implementata nei service layer:
 
-CustomerService, VehicleService, VehicleOptionalService, EstimateService
+- CustomerService, VehicleService, VehicleOptionalService, EstimateService
 
 Gestiscono tutte le operazioni CRUD.
 
